@@ -13,5 +13,7 @@ COPY --from=build_image /app/node_modules ./node_modules
 COPY --from=build_image /app/dist .
 COPY --from=build_image /app/prisma ./prisma
 COPY --from=build_image /app/prisma.config.js .
+COPY --from=build_image /app/bin/entrypoint.sh .
+RUN chmod +x entrypoint.sh
 EXPOSE 5001
-CMD ["node", "server.js"]
+CMD ["./entrypoint.sh"]
