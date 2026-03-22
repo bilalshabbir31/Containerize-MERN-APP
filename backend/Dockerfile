@@ -10,6 +10,8 @@ RUN npm prune --omit=dev
 FROM node:22-alpine
 WORKDIR /app
 COPY --from=build_image /app/node_modules ./node_modules
-COPY --from=build_image /app/dist ./dist
+COPY --from=build_image /app/dist .
+COPY --from=build_image /app/prisma ./prisma
+COPY --from=build_image /app/prisma.config.js .
 EXPOSE 5001
-CMD ["node", "dist/server.js"]
+CMD ["node", "server.js"]
